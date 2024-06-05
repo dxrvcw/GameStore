@@ -1,6 +1,6 @@
 'use client'
 
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { BiLogoInstagramAlt } from 'react-icons/bi'
 import { TiSocialTwitter, TiSocialYoutube } from 'react-icons/ti'
@@ -42,7 +42,6 @@ export function StoreSideBar() {
 		maxPrice: undefined,
 	})
 
-	const params = useSearchParams()
 	const pathname = usePathname()
 	const { replace } = useRouter()
 
