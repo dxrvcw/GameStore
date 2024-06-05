@@ -1,9 +1,7 @@
 import Image from 'next/image'
 import styles from './page.module.css'
 
-export default function GameStore({ searchParams }: { searchParams: any }) {
-	console.log(searchParams)
-
+export default function GameStore() {
 	return (
 		<div style={{ width: '100%' }}>
 			<div className={styles['banner-container']}>
