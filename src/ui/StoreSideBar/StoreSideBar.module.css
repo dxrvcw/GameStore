@@ -1,0 +1,88 @@
+.sidebar {
+	background-color: color-mix(
+		in srgb,
+		var(--bg-light) 12%,
+		rgba(0, 0, 0, 0) 88%
+	);
+	overflow: hidden;
+	position: relative;
+	padding: 25px 35px 0 35px;
+	border-radius: 20px;
+}
+
+.sidebar::before {
+	content: '';
+	position: absolute;
+	top: 50px;
+	right: -120px;
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+	background-color: var(--accent-color);
+	filter: blur(160px);
+	opacity: 1;
+}
+
+.title {
+	color: var(--text-color);
+	margin-bottom: 15px;
+}
+
+.form {
+	margin-bottom: 25px;
+}
+
+.priceRange {
+	display: flex;
+	gap: 5px;
+	align-items: center;
+}
+
+.priceInput {
+	width: 80px;
+	height: 30px;
+	padding-left: 20px; /* Increased padding to accommodate the dollar symbol */
+	background: none;
+	border: 1px solid #ccc;
+	position: relative;
+	color: var(--text-color);
+}
+
+.priceInput::before {
+	content: '$';
+	position: absolute;
+	left: 10px;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.button {
+	width: 100%;
+	margin-top: 20px;
+	padding: 8px;
+	border-radius: 20px;
+	border: none;
+	background-color: var(--accent-color);
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.button:hover {
+	background-color: color-mix(
+		in srgb,
+		var(--accent-color) 80%,
+		var(--bg-light) 20%
+	);
+}
+
+.socials {
+	display: flex;
+	justify-content: center;
+	gap: 20px;
+	list-style: none;
+	margin-top: 10px;
+}
+
+.socialIcon {
+	font-size: 24px;
+}
