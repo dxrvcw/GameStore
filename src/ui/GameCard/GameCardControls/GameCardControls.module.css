@@ -1,0 +1,10 @@
+.cartBtn,
+.favoriteBtn {
+	background-color: var(--accent-color);
+	border: none;
+	border-radius: 10px;
+	font-size: 16px;
+	cursor: pointer;
+	padding: 6px 15px;
+	margin-left: 20px;
+}

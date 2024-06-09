@@ -1,0 +1,46 @@
+.cartError {
+	text-align: center;
+	margin-top: 20px;
+	font-size: 20px;
+}
+
+.cartContainer {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.totalPrice {
+	margin-top: 40px;
+	text-align: right;
+	font-size: 20px;
+}
+
+.price {
+	font-size: 24px;
+	color: var(--accent-color);
+	font-weight: bold;
+}
+
+.btnContainer {
+	display: flex;
+	width: 100%;
+	justify-content: end;
+}
+
+.orderBtn {
+	margin-top: 30px;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	background-color: var(--accent-color);
+	font-size: 18px;
+	cursor: pointer;
+}
+.orderBtn:hover {
+	background-color: color-mix(
+		in srgb,
+		var(--accent-color) 50%,
+		var(--bg-light) 50%
+	);
+}

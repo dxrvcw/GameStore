@@ -8,9 +8,10 @@ import styles from './LinkComponent.module.css'
 interface ILinkProps {
 	href: string
 	children: ReactNode
+	onClick?: () => void
 }
 
-export function LinkComponent({ children, href }: ILinkProps) {
+export function LinkComponent({ children, href, onClick }: ILinkProps) {
 	const pathname = usePathname()
 
 	return (
@@ -19,6 +20,7 @@ export function LinkComponent({ children, href }: ILinkProps) {
 			className={
 				pathname === href ? styles.link + ' ' + styles.active : styles.link
 			}
+			onClick={onClick}
 		>
 			{children}
 		</Link>

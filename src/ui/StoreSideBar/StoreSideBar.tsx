@@ -1,5 +1,6 @@
 'use client'
 
+import debounce from 'debounce'
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { BiLogoInstagramAlt } from 'react-icons/bi'
@@ -8,38 +9,27 @@ import { Checkbox } from '../Checkbox/Checkbox'
 import { LinkComponent } from '../LinkComponent/LinkComponent'
 import styles from './StoreSideBar.module.css'
 
-export const categories = [
-	'Indy',
-	'Adventure',
-	'MMO',
-	'Casual game',
-	'Strategy',
-	'Simulator',
-	'Sports Game',
-	'Action Game',
-]
-
-export const platforms = [
-	'PC',
-	'PlayStation 5',
-	'PlayStation 4',
-	'Xbox Series',
-	'Nintendo Switch',
-]
-
-interface ISearchParams {
+export interface IGamesSearch {
 	categories: string[]
 	platforms: string[]
 	minPrice?: number
 	maxPrice?: number
+	search?: string
 }
 
-export function StoreSideBar() {
-	const [searchParams, setSearchParams] = useState<ISearchParams>({
+export function StoreSideBar({
+	categories,
+	platforms,
+}: {
+	categories: string[]
+	platforms: string[]
+}) {
+	const [searchParams, setSearchParams] = useState<IGamesSearch>({
 		categories: [],
 		platforms: [],
 		minPrice: undefined,
 		maxPrice: undefined,
+		search: '',
 	})
 
 	const pathname = usePathname()
@@ -55,16 +45,20 @@ export function StoreSideBar() {
 		})
 	}
 
-	const handlePriceChange = (
-		e: React.ChangeEvent<HTMLInputElement>,
-		type: 'minPrice' | 'maxPrice'
-	) => {
-		const value = parseInt(e.target.value, 10)
-		setSearchParams(prev => ({
-			...prev,
-			[type]: isNaN(value) ? undefined : value,
-		}))
-	}
+	const handlePriceChange = debounce(
+		(e: React.ChangeEvent<HTMLInputElement>, type: 'minPrice' | 'maxPrice') => {
+			const value = parseInt(e.target.value, 10)
+			setSearchParams(prev => ({
+				...prev,
+				[type]: isNaN(value) ? undefined : value,
+			}))
+		},
+		500
+	)
+
+	const handleSearch = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
+		setSearchParams(prev => ({ ...prev, search: e.target.value }))
+	}, 300)
 
 	useEffect(() => {
 		const query = new URLSearchParams()
@@ -80,12 +74,19 @@ export function StoreSideBar() {
 		if (searchParams.maxPrice !== undefined)
 			query.append('maxPrice', searchParams.maxPrice.toString())
 
+		if (searchParams.search) query.append('search', searchParams.search)
 		replace(`${pathname}?${query.toString()}`)
 	}, [searchParams])
 
 	return (
-		<div>
+		<div style={{ flexBasis: '300px' }}>
 			<aside className={styles.sidebar}>
+				<input
+					type='text'
+					placeholder='Find Game'
+					onChange={handleSearch}
+					className={styles.searchBar}
+				/>
 				<div className={styles.form}>
 					<p className={styles.title}>Categories</p>
 					{categories.map(category => (
@@ -126,24 +127,24 @@ export function StoreSideBar() {
 						/>
 					</div>
 				</div>
+				<ul className={styles.socials}>
+					<li>
+						<LinkComponent href='/'>
+							<TiSocialYoutube className={styles.socialIcon} />
+						</LinkComponent>
+					</li>
+					<li>
+						<LinkComponent href='/'>
+							<TiSocialTwitter className={styles.socialIcon} />
+						</LinkComponent>
+					</li>
+					<li>
+						<LinkComponent href='/'>
+							<BiLogoInstagramAlt className={styles.socialIcon} />
+						</LinkComponent>
+					</li>
+				</ul>
 			</aside>
-			<ul className={styles.socials}>
-				<li>
-					<LinkComponent href='/'>
-						<TiSocialYoutube className={styles.socialIcon} />
-					</LinkComponent>
-				</li>
-				<li>
-					<LinkComponent href='/'>
-						<TiSocialTwitter className={styles.socialIcon} />
-					</LinkComponent>
-				</li>
-				<li>
-					<LinkComponent href='/'>
-						<BiLogoInstagramAlt className={styles.socialIcon} />
-					</LinkComponent>
-				</li>
-			</ul>
 		</div>
 	)
 }

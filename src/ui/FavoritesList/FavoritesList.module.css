@@ -1,0 +1,12 @@
+.listContainer {
+	display: flex;
+	gap: 20px;
+	justify-content: center;
+	margin-top: 30px;
+	width: 100%;
+}
+
+.error {
+	text-align: center;
+	margin-top: 30px;
+}

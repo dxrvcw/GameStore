@@ -2,6 +2,7 @@
 	color: var(--bg-light);
 	text-decoration: none;
 	transition: color 0.05s ease-in;
+	position: relative;
 
 	&.active {
 		color: var(--accent-color);
